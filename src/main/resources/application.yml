@@ -1,0 +1,22 @@
+
+auth0:
+  audience: http://quickstart/api
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: "dbs-client-id"
+            client-secret: "2e67e778-05ed-46a4-a9e6-d967b85e7e5b"
+            authorization-grant-type: "password"
+
+        provider:
+          keycloak:
+            token-uri: "http://localhost:9091/auth/realms/global/protocol/openid-connect/token"
+server:
+  port: 8181
+
+logging:
+  level:
+    root: debug
