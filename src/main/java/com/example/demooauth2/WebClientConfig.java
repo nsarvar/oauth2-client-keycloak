@@ -1,5 +1,6 @@
 package com.example.demooauth2;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.*;
@@ -15,6 +16,12 @@ import java.util.function.Function;
 
 @Configuration
 public class WebClientConfig {
+    @Value("${keycloak.username}")
+    private String kcUsername;
+
+    @Value("${keycloak.password}")
+    private String kcPassword;
+
     @Bean
     WebClient webClient(OAuth2AuthorizedClientManager authorizedClientManager) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2Client =
@@ -46,8 +53,8 @@ public class WebClientConfig {
     private Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper() {
         return authorizeRequest -> {
             final Map<String, Object> contextAttributes = new HashMap<>();
-            contextAttributes.put(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "dbs-user");
-            contextAttributes.put(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "@<<DBS_user_password_123>>");
+            contextAttributes.put(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, kcUsername);
+            contextAttributes.put(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, kcPassword);
             return contextAttributes;
         };
     }
