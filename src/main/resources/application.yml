@@ -4,20 +4,24 @@ auth0:
 spring:
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9091/auth/realms/upay
+
       client:
         registration:
           keycloak:
-            client-id: "dbs-client-id"
-            client-secret: "2e67e778-05ed-46a4-a9e6-d967b85e7e5b"
+            client-id: "service-a"
+            client-secret: "95056fee-a01d-4967-9f60-29fe4d89dc86"
             authorization-grant-type: "password"
 
         provider:
           keycloak:
-            token-uri: "http://localhost:9091/auth/realms/global/protocol/openid-connect/token"
+            token-uri: "http://localhost:9091/auth/realms/upay/protocol/openid-connect/token"
 
 keycloak:
-  username: dbs-user
-  password: @<<DBS_user_password_123>>
+  username: "tech-user-service-a"
+  password: "1234"
 
 server:
   port: 8181
